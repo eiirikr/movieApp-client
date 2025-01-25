@@ -4,10 +4,10 @@ import UserView from "../components/UserView";
 import AdminView from "../components/AdminView";
 import { Notyf } from "notyf";
 
-export default function ProductsCatalog() {
+export default function MoviesCatalog() {
   const { user } = useContext(UserContext);
 
-  const [products, setProducts] = useState([]);
+  const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const fetchData = useCallback(() => {
@@ -15,8 +15,8 @@ export default function ProductsCatalog() {
     setLoading(true);
     const fetchUrl =
       user.isAdmin === true
-        ? `${process.env.REACT_APP_API_BASE_URL}/products/all`
-        : `${process.env.REACT_APP_API_BASE_URL}/products/active`;
+        ? `${process.env.REACT_APP_API_BASE_URL}/movies/all`
+        : `${process.env.REACT_APP_API_BASE_URL}/movies/active`;
 
     const fetchOptions =
       user.isAdmin === true
@@ -30,10 +30,10 @@ export default function ProductsCatalog() {
     fetch(fetchUrl, fetchOptions)
       .then((res) => res.json())
       .then((data) => {
-        setProducts(data);
+        setMovies(data);
       })
       .catch((err) => {
-        notyf.error("Error fetching products:", err);
+        notyf.error("Error fetching movies:", err);
       })
       .finally(() => {
         setLoading(false);
@@ -45,8 +45,8 @@ export default function ProductsCatalog() {
   }, [user, fetchData]);
 
   return user.isAdmin === true ? (
-    <AdminView productsData={products} fetchData={fetchData} />
+    <AdminView moviesData={movies} fetchData={fetchData} />
   ) : (
-    <UserView productsData={products} fetchData={fetchData} loading={loading} />
+    <UserView moviesData={movies} fetchData={fetchData} loading={loading} />
   );
 }
