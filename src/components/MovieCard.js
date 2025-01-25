@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { imagesData } from "../imagesData";
 import { useState } from "react";
 
-export default function MovieCard({ productProp, fetchData }) {
+export default function MovieCard({ movieProp, fetchData }) {
   const { _id, name, description, price } = movieProp;
   const [images] = useState(imagesData);
 
